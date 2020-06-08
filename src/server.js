@@ -6,12 +6,12 @@ const cors = require('cors');
 const notFound = require('../src/middleware/404.js');
 const serverError = require('../src/middleware/500.js');
 const router = require('./auth/router.js');
-//require router and middlewares
 
 const app = express();
 
 //after adding jsdocs
 // app.use('/docs', express.static('./docs'));
+app.use(express.static('./public'));
 
 app.use(express.json());
 app.use(cors());

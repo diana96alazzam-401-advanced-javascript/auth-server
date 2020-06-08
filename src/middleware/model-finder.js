@@ -14,6 +14,10 @@ function getModel(req, res, next) {
     req.model = userModel;
     next();
     return;
+  case 'oauth':
+    req.model = userModel;
+    next();
+    return;
   default: 
     next('invalid model');
     return;
