@@ -34,4 +34,4 @@
 
 #### UML
 
-- ![UML](./assets/lab11-uml.jpg)
+- ![UML](./assets/wsl.jpg)
