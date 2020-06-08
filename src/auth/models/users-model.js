@@ -35,7 +35,7 @@ class UserModel extends Model {
       });
     });
   }
-  async generateToken (user) {
+  generateToken (user) {
     const token = jwt.sign({ username: user.username }, SECRET);
     return token;
   }
