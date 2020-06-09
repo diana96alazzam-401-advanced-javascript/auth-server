@@ -36,8 +36,27 @@ class UserModel extends Model {
     });
   }
   generateToken (user) {
-    const token = jwt.sign({ username: user.username }, SECRET);
+    console.log('check here--------------', user);
+    const token =  jwt.sign({
+      exp: Math.floor(Date.now() / 1000) + (15 * 60),
+      algorithm: 'ES384',
+      username: user.username,
+      id: user._id,
+    }, SECRET);
     return token;
+  }
+  authenticateToken (token){
+    const tokenObject = jwt.verify(token, SECRET);
+
+    return this.get({_id:tokenObject.id}).then((result)=> {
+      if (result.length === 0){
+        console.log('User id doesn"t exists');
+        return Promise.reject('User ID is not found!');
+      } else {
+        console.log('User ID already exists', tokenObject);
+        return Promise.resolve(result[0]);
+      }
+    });    
   }
 }
 

@@ -6,6 +6,7 @@ const cors = require('cors');
 const notFound = require('../src/middleware/404.js');
 const serverError = require('../src/middleware/500.js');
 const router = require('./auth/router.js');
+const extraRoutes = require('./extra-routes.js');
 
 const app = express();
 
@@ -16,8 +17,10 @@ app.use(express.static('./public'));
 app.use(express.json());
 app.use(cors());
 app.use(router);
+app.use(extraRoutes);
 app.use('*', notFound);
 app.use(serverError);
+
 
 module.exports = {
   server: app,
