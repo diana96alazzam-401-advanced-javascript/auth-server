@@ -4,9 +4,9 @@
 
 ### Links and Resources
 
-- [Pull request](https://github.com/diana96alazzam-401-advanced-javascript/auth-server/pull/2)
+- [Pull request](https://github.com/diana96alazzam-401-advanced-javascript/auth-server/pull/3)
 - [ci/cd](https://github.com/diana96alazzam-401-advanced-javascript/auth-server/actions) (GitHub Actions)
-<!-- - [back-end server url](https://auth-server-amman-401d2.herokuapp.com/) -->
+- [back-end server url](https://auth-app-401.herokuapp.com/)
 <!-- - [documentation](https://auth-server-amman-401d2.herokuapp.com/docs) -->
 
 
@@ -23,6 +23,17 @@
 
 <!-- - documentation route `/docs` -->
 
+#### Routes
+- `/signup`:
+  * POST: send username and password 
+- `/signin`
+  * POST: send username and password with basic authentication
+- `/users`
+  * GET: get all users from database
+- `/oauth`
+  * GET: sign in and up with github
+- Extra routes for testing:
+  * `/secret`
 
 #### How to initialize/run this application
 
