@@ -9,6 +9,7 @@ module.exports = (req, res, next) => {
   req.username = user,
   req.password = pass;
   return UserModelIns.authenticateBasic(user, pass).then((validUser)=> {
+    console.log('555555555555555555', validUser);
     req.token = UserModelIns.generateToken(validUser);
     next();
   }).catch(err=> next(err));

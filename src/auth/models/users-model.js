@@ -7,6 +7,16 @@ const jwt = require('jsonwebtoken');
 
 const SECRET = process.env.SECRET || 'mysecret';
 
+// Regular users can READ
+// Writers can READ and CREATE
+// Editors can READ, CREATE, and UPDATE
+// Administrators can READ, CREATE, UPDATE, and DELETE
+
+const roles = {
+  user: ['read'],
+  writer:['read', 'create', 'update'],
+  admin: ['read', 'create', 'update', 'delete'],
+};
 
 class UserModel extends Model {
   constructor() {
@@ -36,13 +46,16 @@ class UserModel extends Model {
     });
   }
   generateToken (user) {
-    console.log('check here--------------', user);
-    const token =  jwt.sign({
+    console.log(user.role);
+    // capabilities === roles[user.role] ===== ['read'] OR ['read', 'create', 'update'];
+    const userData = {
       exp: Math.floor(Date.now() / 1000) + (15 * 60),
       algorithm: 'ES384',
       username: user.username,
       id: user._id,
-    }, SECRET);
+      capabilities: roles[user.role],
+    };
+    const token =  jwt.sign(userData, SECRET);
     return token;
   }
   authenticateToken (token){
