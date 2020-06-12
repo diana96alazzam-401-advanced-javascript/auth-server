@@ -12,11 +12,11 @@ const SECRET = process.env.SECRET || 'mysecret';
 // Editors can READ, CREATE, and UPDATE
 // Administrators can READ, CREATE, UPDATE, and DELETE
 
-const roles = {
-  user: ['read'],
-  writer:['read', 'create', 'update'],
-  admin: ['read', 'create', 'update', 'delete'],
-};
+// const roles = {
+//   user: ['read'],
+//   writer:['read', 'create', 'update'],
+//   admin: ['read', 'create', 'update', 'delete'],
+// };
 
 class UserModel extends Model {
   constructor() {
@@ -53,7 +53,7 @@ class UserModel extends Model {
       algorithm: 'ES384',
       username: user.username,
       id: user._id,
-      capabilities: roles[user.role],
+      // capabilities: roles[user.role],
     };
     const token =  jwt.sign(userData, SECRET);
     return token;
