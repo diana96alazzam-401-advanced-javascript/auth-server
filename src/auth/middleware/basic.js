@@ -3,14 +3,18 @@ const UserModelIns = require('../models/users-model.js');
 
 
 module.exports = (req, res, next) => {
-  console.log('headerAuth' ,req.headers.authorization);
+  if(!req.headers.authorization){
+    next('Invalid login!');
+    return;
+  }
   let basic = req.headers.authorization.split(' ').pop();
-  const [user, pass] = base64.decode(basic).split(':');
-  req.username = user,
-  req.password = pass;
+  let [user, pass] = base64.decode(basic).split(':');
   return UserModelIns.authenticateBasic(user, pass).then((validUser)=> {
-    console.log('555555555555555555', validUser);
+    req.user = {
+      username: validUser.username,
+      acl:validUser.acl,
+    };
     req.token = UserModelIns.generateToken(validUser);
     next();
-  }).catch(err=> next(err));
+  }).catch(err=> next('Invalid login'));
 };

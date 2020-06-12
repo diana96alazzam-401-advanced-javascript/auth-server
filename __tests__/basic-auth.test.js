@@ -3,8 +3,10 @@ const {server} = require('../src/server');
 const supergoose = require('@code-fellows/supergoose');
 const mockRequest = supergoose(server);
 
-describe('500 internal server error Middleware', () => {
+describe('Basic auth middleware', () => {
 
-  it('status 500 and a status message (Server Error!!)', () => {
+  it('can send the basic header', () => {
+  });
+  it('the routes assert the requirements (signup/signin)', () => {
   });
 });

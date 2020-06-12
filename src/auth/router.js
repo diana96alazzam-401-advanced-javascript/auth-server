@@ -15,15 +15,25 @@ router.get('/oauth', oauth, oauthHandler);
 
 
 function signUpHandler(req, res){
-  UserModelIns.save(req.body).then((data) => {
-    const token = UserModelIns.generateToken(data);
-    console.log({token});
-    res.json({token});        
-  }).catch(err => res.status(403).send(err));
+  UserModelIns.save(req.body).then((data) => { //save or create?
+    req.token = UserModelIns.generateToken(data);
+    req.user = {
+      username: data.username,
+      acl: data.acl,
+    };
+    res.cookie('auth', req.token);
+    res.set('auth', req.token);
+    console.log(req.user);
+    res.json({user: req.user, token: req.token});        
+  }).catch((err) => res.status(403).send('Error in sign up!!'));
 }
+
 function signInHandler(req, res){
-  return res.json({token:req.token, user: req.username});  
+  res.cookie('auth', req.token);
+  res.set('auth', req.token);
+  return res.json({user: req.username, token:req.token});  
 }
+
 function usersHandler(req, res){
   return UserModelIns.get().then((list)=> {
     return res.json(list);

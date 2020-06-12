@@ -6,9 +6,8 @@ class Model {
     this.schema = schema;
   }
 
-  get(query) {
-    const queryObject = query ? query : {};
-    return this.schema.find(queryObject);
+  get(queryObject = {}) {
+    return this.schema.find(queryObject).populate('acl');
   }
   create(record) {
     const newRecord = new this.schema(record);
